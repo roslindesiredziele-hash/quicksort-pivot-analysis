@@ -88,7 +88,7 @@ int main()
 
     cout << "\nBenchmark completed.\n";
 
-    cout << "Results saved to " << "./data/benchmark.csv\n";
+    cout << "Results saved to " << "./data/data.csv\n";
 
     return 0;
 }
