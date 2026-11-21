@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # LOAD DATA
 # =====================================================
 
-df = pd.read_csv("./data/benchmark.csv")
+df = pd.read_csv("./data/data.csv")
 
 # =====================================================
 # VERY SMALL INPUTS (5-50)

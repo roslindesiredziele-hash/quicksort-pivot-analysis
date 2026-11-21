@@ -17,7 +17,7 @@ int main()
 {
     srand(time(nullptr));
 
-    ofstream outfile("./data/benchmark.csv");
+    ofstream outfile("./data/data.csv");
 
     if (!outfile)
     {
