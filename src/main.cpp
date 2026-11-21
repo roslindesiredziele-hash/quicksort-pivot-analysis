@@ -10,8 +10,7 @@
 using namespace std;
 
 int* GenerateRandomArray(int n);
-double MeasureSinglePivot(int n, int repetitions);
-double MeasureDualPivot(int n, int repetitions);
+void MeasureSorts( int n, int repetitions, double& singleTime, double& dualTime);
 
 int main()
 {
