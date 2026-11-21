@@ -1,5 +1,7 @@
 #include "QuickSorts.h"
 
+#include <Windows.h>
+
 #include <iostream>
 #include <ctime>
 
@@ -53,4 +55,44 @@ int* GenerateRandomArray(int n)
     }
 
     return arr;
+}
+
+double MeasureSinglePivot(int n, int repetitions)
+{
+    LARGE_INTEGER start, end, frequency;
+
+    QueryPerformanceFrequency(&frequency);
+
+    double totalTime = 0.0;
+
+    for (int r = 0; r < repetitions; r++)
+    {
+        int* original =
+            GenerateRandomArray(n);
+
+        int* arr = new int[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            arr[i] = original[i];
+        }
+
+        QueryPerformanceCounter(&start);
+
+        SinglePivotQuickSort(arr, n);
+
+        QueryPerformanceCounter(&end);
+
+        totalTime += (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
+
+        delete[] arr;
+        delete[] original;
+    }
+
+    return totalTime / repetitions;
+}
+
+double MeasureDualPivot(int n, int repetitions)
+{
+    
 }
