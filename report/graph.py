@@ -319,7 +319,7 @@ plt.text(
 plt.text(
     3000,
     ypos,
-    "Large Inputs\n(100-100000)"
+    "Full Benchmark\n(100-100000)"
 )
 
 plt.title(
