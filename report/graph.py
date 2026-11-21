@@ -139,12 +139,12 @@ plt.savefig(
 plt.close()
 
 # =====================================================
-# LARGE INPUTS (1000-100000)
+# LARGE INPUTS (1000-5000)
 # =====================================================
 
 large = df[
     (df["Size"] >= 1000) &
-    (df["Size"] <= 100000)
+    (df["Size"] <= 5000)
 ]
 
 plt.figure(figsize=(10, 6))
@@ -166,7 +166,7 @@ plt.plot(
 )
 
 plt.title(
-    "Quick Sort Pivot Comparison - Large Inputs (1000-100000)"
+    "Quick Sort Pivot Comparison - Large Inputs (1000-5000)"
 )
 
 plt.xlabel("Input Size")
@@ -178,6 +178,51 @@ plt.tight_layout()
 
 plt.savefig(
     "./report/large_inputs.png",
+    dpi=300
+)
+
+plt.close()
+
+# =====================================================
+# VERY LARGE INPUTS (5000-100000)
+# =====================================================
+
+very_large = df[
+    (df["Size"] >= 5000) &
+    (df["Size"] <= 100000)
+]
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    very_large["Size"],
+    very_large["SinglePivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Single Pivot"
+)
+
+plt.plot(
+    very_large["Size"],
+    very_large["DualPivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Dual Pivot"
+)
+
+plt.title(
+    "Quick Sort Pivot Comparison - Very Large Inputs (5000-100000)"
+)
+
+plt.xlabel("Input Size")
+plt.ylabel("Execution Time (ms)")
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    "./report/very_large_inputs.png",
     dpi=300
 )
 
