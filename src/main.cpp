@@ -6,10 +6,13 @@
 using namespace std;
 
 int* GenerateRandomArray(int n);
-
+double MeasureSinglePivot(int n, int repetitions);
+double MeasureDualPivot(int n, int repetitions);
 
 int main()
 {
+    srand(time(nullptr));
+
     int data[] =
 {
     5, 1, 8, 3, 2, 9, 4
