@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <ctime>
 
 using namespace std;
@@ -28,7 +29,7 @@ int main()
 
     outfile << "Size," << "SinglePivotMs," << "DualPivotMs\n";
 
-    
+
 
     return 0;
 }
