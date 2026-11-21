@@ -1,5 +1,7 @@
 #include "QuickSort.h"
 
+#include <cstdlib>
+
 void QuickSort(int* arr, int n)
 {
     if (n<2) return;
