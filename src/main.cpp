@@ -1,4 +1,4 @@
-#include "QuickSort.h"
+#include "QuickSorts.h"
 
 #include <iostream>
 #include <ctime>

@@ -1,6 +1,8 @@
-#ifndef QUICKSORT_H
-#define QUICKSORT_H
+#ifndef QUICKSORTS_H
+#define QUICKSORTS_H
 
-void QuickSort(int* arr, int n);
+void SinglePivotQuickSort(int* arr, int n);
+void DualPivotQuickSort(int* arr, int n);
+
 
 #endif
