@@ -9,8 +9,8 @@ void QuickSort(int* arr, int n)
 int p = rand() % n;
 int P = arr[p];
 
-arr[p] = arr[n-1];
-arr[n-1] = P;
+arr[p] = arr[n - 1];
+arr[n - 1] = P;
 
 int i, j;
 i = j = 0;
