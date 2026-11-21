@@ -1,19 +1,17 @@
-# Dangerous Quickminds
+# QuickSort Pivot Analysis
 
-A C++ benchmarking project that compares Single-Pivot Quick Sort and Dual-Pivot Quick Sort to investigate how the number of pivots influences sorting performance.
+A C++ benchmarking project that compares Single-Pivot and Dual-Pivot Quick Sort implementations to investigate how increasing the number of pivots affects sorting performance.
 
 ## Overview
 
-Quick Sort is one of the most widely used comparison-based sorting algorithms.
+Quick Sort is one of the most widely used comparison-based sorting algorithms due to its simplicity and excellent average-case performance.
 
-This project compares:
+This project benchmarks two variants:
 
 - Single-Pivot Quick Sort
 - Dual-Pivot Quick Sort
 
-using randomly generated datasets ranging from very small inputs to arrays containing 100,000 elements.
-
-The objective is to determine whether increasing the number of pivots improves practical performance while preserving the same theoretical complexity.
+The goal is to determine whether increasing the number of pivots improves practical runtime while preserving the same theoretical complexity.
 
 ---
 
@@ -21,15 +19,18 @@ The objective is to determine whether increasing the number of pivots improves p
 
 ### Single-Pivot Quick Sort
 
-Partitions the array around a single randomly selected pivot.
+The Single-Pivot implementation selects a random pivot and partitions the array into two regions:
 
 ```text
-<= Pivot | > Pivot
+<= Pivot
+> Pivot
 ```
+
+The resulting subarrays are sorted recursively.
 
 ### Dual-Pivot Quick Sort
 
-Partitions the array using two pivots.
+The Dual-Pivot implementation partitions the array using two pivot elements:
 
 ```text
 < Pivot1
@@ -39,7 +40,7 @@ Pivot1 <= x <= Pivot2
 > Pivot2
 ```
 
-This often produces more balanced partitions and improves practical runtime.
+This creates three regions instead of two and often produces more balanced recursive partitions.
 
 ---
 
@@ -54,13 +55,11 @@ n
 be the number of elements.
 
 | Algorithm | Average Case | Worst Case | Space |
-|-----------|-------------|------------|--------|
+|------------|-------------|------------|--------|
 | Single-Pivot Quick Sort | O(n log n) | O(n²) | O(log n) |
 | Dual-Pivot Quick Sort | O(n log n) | O(n²) | O(log n) |
 
-Both algorithms have identical asymptotic complexity.
-
-The purpose of the benchmark is therefore to measure practical performance differences caused by partitioning strategy and constant factors.
+Both algorithms have identical asymptotic complexity. Any performance difference therefore comes from implementation efficiency, partition quality, and constant factors rather than improved Big-O complexity.
 
 ---
 
@@ -72,7 +71,7 @@ Execution time was measured using:
 QueryPerformanceCounter()
 ```
 
-Benchmark sizes:
+Input sizes:
 
 ```text
 5
@@ -102,14 +101,14 @@ Benchmark sizes:
 100000
 ```
 
-For every repetition:
+To ensure a fair comparison:
 
-1. A random array was generated.
-2. The array was duplicated.
-3. Single-Pivot Quick Sort sorted one copy.
-4. Dual-Pivot Quick Sort sorted the other copy.
+1. A random dataset was generated.
+2. Two identical copies were created.
+3. Single-Pivot Quick Sort processed one copy.
+4. Dual-Pivot Quick Sort processed the other copy.
 
-This ensured that both algorithms always processed identical data.
+This ensured that both algorithms always sorted exactly the same data.
 
 ---
 
@@ -132,73 +131,120 @@ For arrays containing:
 100,000 elements
 ```
 
-Dual-Pivot Quick Sort completed in:
-
-```text
-9.60 ms
-```
-
-compared to:
+Single-Pivot Quick Sort required:
 
 ```text
 13.80 ms
 ```
 
-for Single-Pivot Quick Sort.
+whereas Dual-Pivot Quick Sort completed in:
+
+```text
+9.60 ms
+```
+
+representing an improvement of approximately:
+
+```text
+30%
+```
 
 ---
 
-## Generated Figures
+## Results and Analysis
 
 ### Very Small Inputs (5–50)
 
-```text
-report/very_small_inputs.png
-```
+![Very Small Inputs](report/very_small_inputs.png)
 
-Compares the algorithms on tiny arrays where overhead dominates execution time.
+Even for extremely small arrays, Dual-Pivot Quick Sort consistently achieved lower execution times.
+
+Examples:
+
+| Size | Single Pivot (ms) | Dual Pivot (ms) |
+|------:|------:|------:|
+| 5 | 0.000154 | 0.000127 |
+| 25 | 0.001421 | 0.000806 |
+| 50 | 0.003222 | 0.001960 |
+
+The difference is small in absolute terms but remains consistent across the entire range.
+
+---
 
 ### Small Inputs (50–300)
 
-```text
-report/small_inputs.png
-```
+![Small Inputs](report/small_inputs.png)
 
-Shows the first noticeable performance differences between the two implementations.
+The performance advantage becomes more visible.
+
+| Size | Single Pivot (ms) | Dual Pivot (ms) |
+|------:|------:|------:|
+| 100 | 0.007720 | 0.004510 |
+| 200 | 0.014882 | 0.009487 |
+| 300 | 0.023143 | 0.015217 |
+
+Dual-Pivot Quick Sort required approximately 35–40% less execution time throughout this range.
+
+---
 
 ### Medium Inputs (300–1000)
 
-```text
-report/medium_inputs.png
-```
+![Medium Inputs](report/medium_inputs.png)
 
-Illustrates the growing advantage of Dual-Pivot Quick Sort.
+Both algorithms continue following the same growth trend, but the gap between them remains clearly visible.
+
+| Size | Single Pivot (ms) | Dual Pivot (ms) |
+|------:|------:|------:|
+| 500 | 0.040579 | 0.027025 |
+| 1000 | 0.091283 | 0.064156 |
+
+The data indicates that the benefit of using two pivots is sustained as the input size increases.
+
+---
 
 ### Large Inputs (1000–5000)
 
-```text
-report/large_inputs.png
-```
+![Large Inputs](report/large_inputs.png)
 
-Highlights increasingly significant runtime differences.
+The runtime difference becomes significant.
+
+| Size | Single Pivot (ms) | Dual Pivot (ms) |
+|------:|------:|------:|
+| 2000 | 0.195024 | 0.132327 |
+| 3000 | 0.299478 | 0.206912 |
+| 5000 | 0.525814 | 0.368812 |
+
+Dual-Pivot Quick Sort consistently performs the same sorting task in noticeably less time.
+
+---
 
 ### Very Large Inputs (5000–100000)
 
-```text
-report/very_large_inputs.png
-```
+![Very Large Inputs](report/very_large_inputs.png)
 
-Demonstrates the practical performance advantage of Dual-Pivot Quick Sort on large datasets.
+This range provides the clearest picture of practical performance.
+
+| Size | Single Pivot (ms) | Dual Pivot (ms) |
+|------:|------:|------:|
+| 10000 | 1.11442 | 0.79344 |
+| 50000 | 6.87260 | 4.82085 |
+| 100000 | 13.80490 | 9.59887 |
+
+As the input size grows, the performance advantage remains stable rather than disappearing.
+
+This indicates that the improvement is not caused by measurement noise or startup overhead.
+
+---
 
 ### Logarithmic Runtime Comparison
 
-```text
-report/runtime_logarithmic.png
-```
+![Logarithmic Comparison](report/runtime_logarithmic.png)
 
-The most important graph in the project.
+This is the most important graph in the project.
 
-The nearly parallel curves confirm that both algorithms maintain:
+The two curves remain nearly parallel throughout the entire benchmark range.
+
+This indicates that both implementations exhibit:
 
 ```text
 O(n log n)
@@ -206,7 +252,7 @@ O(n log n)
 
 average-case complexity.
 
-The lower position of the Dual-Pivot curve indicates improved practical performance rather than improved asymptotic complexity.
+The Dual-Pivot curve remains consistently below the Single-Pivot curve, demonstrating that the runtime improvement comes from better partitioning and reduced constant factors rather than a change in asymptotic complexity.
 
 ---
 
@@ -228,11 +274,11 @@ Execute:
 ./benchmark.exe
 ```
 
-This will:
+The program will:
 
-1. Generate benchmark datasets.
-2. Measure execution times.
-3. Export benchmark results to:
+1. Generate random datasets
+2. Benchmark both Quick Sort variants
+3. Export results to:
 
 ```text
 data/data.csv
@@ -248,13 +294,13 @@ Install dependencies:
 py -3.13 -m pip install pandas matplotlib
 ```
 
-Generate all graphs:
+Generate all figures:
 
 ```bash
 py -3.13 report/graph.py
 ```
 
-Output:
+Generated files:
 
 ```text
 report/
@@ -271,7 +317,7 @@ report/
 ## Project Structure
 
 ```text
-dangerous-quickminds
+quicksort-pivot-analysis
 │
 ├── data/
 │   └── data.csv
@@ -306,9 +352,9 @@ O(n log n)
 
 average-case complexity.
 
-However, Dual-Pivot Quick Sort consistently achieved lower execution times across all tested input sizes.
+However, the benchmarks showed that Dual-Pivot Quick Sort consistentlywth, while the runtime measurements demonstrated that using two pivots improved practical performance by approximately 30–40%.
 
-The benchmark results demonstrate that increasing the number of pivots from one to two improves practical sorting performance while preserving the same asymptotic complexity.
+These results show that algorithmic design decisions affecting partition quality can have a substantial impact on real-world performance even when the theoretical complexity remains unchanged.
 
 ---
 
