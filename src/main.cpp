@@ -5,6 +5,7 @@
 
 using namespace std;
 
+int* GenerateRandomArray(int n);
 
 
 int main()
@@ -37,4 +38,16 @@ for (int i = 0; i < 7; i++)
 cout << endl;
 
     return 0;
+}
+
+int* GenerateRandomArray(int n)
+{
+    int* arr = new int[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = rand();
+    }
+
+    return arr;
 }
