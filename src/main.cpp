@@ -29,7 +29,20 @@ int main()
 
     outfile << "Size," << "SinglePivotMs," << "DualPivotMs\n";
 
+    vector<int> sizes =
+    {
+        100,
+        500,
+        1000,
+        2000,
+        5000,
+        10000,
+        20000,
+        50000,
+        100000
+    };
 
+    
 
     return 0;
 }
