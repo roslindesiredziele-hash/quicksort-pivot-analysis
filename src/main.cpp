@@ -104,70 +104,50 @@ int* GenerateRandomArray(int n)
     return arr;
 }
 
-double MeasureSinglePivot(int n, int repetitions)
+void MeasureSorts(int n, int repetitions, double& singleTime, double& dualTime)
 {
     LARGE_INTEGER start, end, frequency;
 
     QueryPerformanceFrequency(&frequency);
 
-    double totalTime = 0.0;
+    singleTime = 0.0;
+    dualTime = 0.0;
 
     for (int r = 0; r < repetitions; r++)
     {
         int* original = GenerateRandomArray(n);
 
-        int* arr = new int[n];
+        int* single = new int[n];
+
+        int* dual = new int[n];
 
         for (int i = 0; i < n; i++)
         {
-            arr[i] = original[i];
+            single[i] = original[i];
+            dual[i] = original[i];
         }
 
         QueryPerformanceCounter(&start);
 
-        SinglePivotQuickSort(arr, n);
+        SinglePivotQuickSort(single, n);
 
         QueryPerformanceCounter(&end);
 
-        totalTime += (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
-
-        delete[] arr;
-        delete[] original;
-    }
-
-    return totalTime / repetitions;
-}
-
-double MeasureDualPivot(int n, int repetitions)
-{
-    LARGE_INTEGER start, end, frequency;
-
-    QueryPerformanceFrequency(&frequency);
-
-    double totalTime = 0.0;
-
-    for (int r = 0; r < repetitions; r++)
-    {
-        int* original = GenerateRandomArray(n);
-
-        int* arr = new int[n];
-
-        for (int i = 0; i < n; i++)
-        {
-            arr[i] = original[i];
-        }
+        singleTime += (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
 
         QueryPerformanceCounter(&start);
 
-        DualPivotQuickSort(arr, n);
+        DualPivotQuickSort(dual, n);
 
         QueryPerformanceCounter(&end);
 
-        totalTime += (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
+        dualTime += (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
 
-        delete[] arr;
         delete[] original;
+        delete[] single;
+        delete[] dual;
     }
 
-    return totalTime / repetitions;
+    singleTime /= repetitions;
+    dualTime /= repetitions;
 }
