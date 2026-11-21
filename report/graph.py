@@ -4,88 +4,189 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("./data/benchmark.csv")
 
 # =====================================================
-# Runtime Comparison
+# VERY SMALL INPUTS (5-50)
 # =====================================================
 
-plt.figure(figsize=(12, 7))
+very_small = df[
+    (df["Size"] >= 5) &
+    (df["Size"] <= 50)
+]
+
+plt.figure(figsize=(10, 6))
 
 plt.plot(
-    df["Size"],
-    df["SinglePivotMs"],
+    very_small["Size"],
+    very_small["SinglePivotMs"],
     marker="o",
     linewidth=2,
-    label="Single Pivot Quick Sort"
+    label="Single Pivot"
 )
 
 plt.plot(
-    df["Size"],
-    df["DualPivotMs"],
+    very_small["Size"],
+    very_small["DualPivotMs"],
     marker="o",
     linewidth=2,
-    label="Dual Pivot Quick Sort"
-)
-
-plt.axvspan(5, 50, alpha=0.15, color="green")
-plt.axvspan(50, 300, alpha=0.15, color="blue")
-plt.axvspan(300, 1000, alpha=0.15, color="orange")
-plt.axvspan(1000, 100000, alpha=0.15, color="red")
-
-ypos = max(df["SinglePivotMs"]) * 0.15
-
-plt.text(
-    25,
-    ypos,
-    "Very Small\n(5-50)",
-    ha="center"
-)
-
-plt.text(
-    175,
-    ypos,
-    "Small\n(50-300)",
-    ha="center"
-)
-
-plt.text(
-    650,
-    ypos,
-    "Medium\n(300-1000)",
-    ha="center"
-)
-
-plt.text(
-    50000,
-    ypos,
-    "Large\n(1000-100000)",
-    ha="center"
+    label="Dual Pivot"
 )
 
 plt.title(
-    "Single-Pivot vs Dual-Pivot Quick Sort Runtime"
+    "Quick Sort Pivot Comparison - Very Small Inputs (5-50)"
 )
 
-plt.xlabel(
-    "Input Size"
-)
-
-plt.ylabel(
-    "Execution Time (ms)"
-)
-
+plt.xlabel("Input Size")
+plt.ylabel("Execution Time (ms)")
 plt.legend()
 plt.grid(True)
 
 plt.tight_layout()
 
 plt.savefig(
-    "./report/runtime_comparison.png",
+    "./report/very_small_inputs.png",
     dpi=300
 )
 
 plt.close()
 
 # =====================================================
-# Logarithmic Comparison
+# SMALL INPUTS (50-300)
+# =====================================================
+
+small = df[
+    (df["Size"] >= 50) &
+    (df["Size"] <= 300)
+]
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    small["Size"],
+    small["SinglePivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Single Pivot"
+)
+
+plt.plot(
+    small["Size"],
+    small["DualPivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Dual Pivot"
+)
+
+plt.title(
+    "Quick Sort Pivot Comparison - Small Inputs (50-300)"
+)
+
+plt.xlabel("Input Size")
+plt.ylabel("Execution Time (ms)")
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    "./report/small_inputs.png",
+    dpi=300
+)
+
+plt.close()
+
+# =====================================================
+# MEDIUM INPUTS (300-1000)
+# =====================================================
+
+medium = df[
+    (df["Size"] >= 300) &
+    (df["Size"] <= 1000)
+]
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    medium["Size"],
+    medium["SinglePivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Single Pivot"
+)
+
+plt.plot(
+    medium["Size"],
+    medium["DualPivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Dual Pivot"
+)
+
+plt.title(
+    "Quick Sort Pivot Comparison - Medium Inputs (300-1000)"
+)
+
+plt.xlabel("Input Size")
+plt.ylabel("Execution Time (ms)")
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    "./report/medium_inputs.png",
+    dpi=300
+)
+
+plt.close()
+
+# =====================================================
+# LARGE INPUTS (1000-100000)
+# =====================================================
+
+large = df[
+    (df["Size"] >= 1000) &
+    (df["Size"] <= 100000)
+]
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    large["Size"],
+    large["SinglePivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Single Pivot"
+)
+
+plt.plot(
+    large["Size"],
+    large["DualPivotMs"],
+    marker="o",
+    linewidth=2,
+    label="Dual Pivot"
+)
+
+plt.title(
+    "Quick Sort Pivot Comparison - Large Inputs (1000-100000)"
+)
+
+plt.xlabel("Input Size")
+plt.ylabel("Execution Time (ms)")
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    "./report/large_inputs.png",
+    dpi=300
+)
+
+plt.close()
+
+# =====================================================
+# LOGARITHMIC COMPARISON
+# SMALL (5-100)
+# LARGE (100-100000)
 # =====================================================
 
 plt.figure(figsize=(12, 7))
@@ -95,7 +196,7 @@ plt.plot(
     df["SinglePivotMs"],
     marker="o",
     linewidth=2,
-    label="Single Pivot Quick Sort"
+    label="Single Pivot"
 )
 
 plt.plot(
@@ -103,7 +204,7 @@ plt.plot(
     df["DualPivotMs"],
     marker="o",
     linewidth=2,
-    label="Dual Pivot Quick Sort"
+    label="Dual Pivot"
 )
 
 plt.xscale("log")
@@ -113,18 +214,19 @@ plt.axvline(
     100,
     color="gray",
     linestyle="--",
+    linewidth=2,
     alpha=0.7
 )
 
 plt.text(
-    30,
-    min(df["DualPivotMs"]) * 3,
+    20,
+    min(df["DualPivotMs"]) * 4,
     "Small Inputs\n(5-100)"
 )
 
 plt.text(
     3000,
-    min(df["DualPivotMs"]) * 3,
+    min(df["DualPivotMs"]) * 4,
     "Large Inputs\n(100-100000)"
 )
 
@@ -159,5 +261,8 @@ plt.savefig(
 plt.close()
 
 print("Generated:")
-print("  report/runtime_comparison.png")
+print("  report/very_small_inputs.png")
+print("  report/small_inputs.png")
+print("  report/medium_inputs.png")
+print("  report/large_inputs.png")
 print("  report/runtime_logarithmic.png")
