@@ -42,7 +42,37 @@ int main()
         100000
     };
 
-    
+    for (int size : sizes)
+    {
+        int repetitions;
+
+        if (size <= 1000)
+        {
+            repetitions = 1000;
+        }
+        else if (size <= 10000)
+        {
+            repetitions = 200;
+        }
+        else
+        {
+            repetitions = 50;
+        }
+
+        double singleTime = MeasureSinglePivot( size, repetitions);
+
+        double dualTime = MeasureDualPivot(size, repetitions);
+
+        cout << "Size: " << size << " | Single Pivot: " << singleTime << " ms" << " | Dual Pivot: " << dualTime << " ms" << endl;
+
+        outfile << size << "," << singleTime << "," << dualTime << "\n";
+    }
+
+    outfile.close();
+
+    cout << "\nBenchmark completed.\n";
+
+    cout << "Results saved to " << "./data/benchmark.csv\n";
 
     return 0;
 }
