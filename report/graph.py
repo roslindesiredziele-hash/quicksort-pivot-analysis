@@ -1,6 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# =====================================================
+# LOAD DATA
+# =====================================================
+
 df = pd.read_csv("./data/benchmark.csv")
 
 # =====================================================
@@ -36,6 +40,12 @@ plt.title(
 
 plt.xlabel("Input Size")
 plt.ylabel("Execution Time (ms)")
+
+plt.xticks([
+    5, 10, 15, 20, 25,
+    30, 35, 40, 45, 50
+])
+
 plt.legend()
 plt.grid(True)
 
@@ -81,6 +91,15 @@ plt.title(
 
 plt.xlabel("Input Size")
 plt.ylabel("Execution Time (ms)")
+
+plt.xticks([
+    50,
+    100,
+    150,
+    200,
+    300
+])
+
 plt.legend()
 plt.grid(True)
 
@@ -126,6 +145,14 @@ plt.title(
 
 plt.xlabel("Input Size")
 plt.ylabel("Execution Time (ms)")
+
+plt.xticks([
+    300,
+    400,
+    500,
+    1000
+])
+
 plt.legend()
 plt.grid(True)
 
@@ -171,6 +198,15 @@ plt.title(
 
 plt.xlabel("Input Size")
 plt.ylabel("Execution Time (ms)")
+
+plt.xticks([
+    1000,
+    2000,
+    3000,
+    4000,
+    5000
+])
+
 plt.legend()
 plt.grid(True)
 
@@ -216,6 +252,15 @@ plt.title(
 
 plt.xlabel("Input Size")
 plt.ylabel("Execution Time (ms)")
+
+plt.xticks([
+    5000,
+    10000,
+    20000,
+    50000,
+    100000
+])
+
 plt.legend()
 plt.grid(True)
 
@@ -263,15 +308,17 @@ plt.axvline(
     alpha=0.7
 )
 
+ypos = min(df["DualPivotMs"]) * 4
+
 plt.text(
     20,
-    min(df["DualPivotMs"]) * 4,
+    ypos,
     "Small Inputs\n(5-100)"
 )
 
 plt.text(
     3000,
-    min(df["DualPivotMs"]) * 4,
+    ypos,
     "Large Inputs\n(100-100000)"
 )
 
@@ -305,9 +352,10 @@ plt.savefig(
 
 plt.close()
 
-print("Generated:")
+print("\nGenerated:")
 print("  report/very_small_inputs.png")
 print("  report/small_inputs.png")
 print("  report/medium_inputs.png")
 print("  report/large_inputs.png")
+print("  report/very_large_inputs.png")
 print("  report/runtime_logarithmic.png")
