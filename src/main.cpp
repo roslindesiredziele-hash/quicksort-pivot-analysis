@@ -3,6 +3,7 @@
 #include <Windows.h>
 
 #include <iostream>
+#include <fstream>
 #include <ctime>
 
 using namespace std;
