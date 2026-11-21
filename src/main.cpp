@@ -26,6 +26,8 @@ int main()
         return 1;
     }
 
+    outfile << "Size," << "SinglePivotMs," << "DualPivotMs\n";
+
     
 
     return 0;
