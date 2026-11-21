@@ -2,7 +2,7 @@
 
 #include <cstdlib>
 
-void QuickSort(int* arr, int n)
+void SinglePivotQuickSort(int* arr, int n)
 {
     if (n<2) return;
 
@@ -29,6 +29,6 @@ while(j < n)
 
 int pivotPos = i -1;
 
-QuickSort(arr, pivotPos);
-QuickSort(arr + pivotPos + 1, n - pivotPos - 1);
+SinglePivotQuickSort(arr, pivotPos);
+SinglePivotQuickSort(arr + pivotPos + 1, n - pivotPos - 1);
 }
