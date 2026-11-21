@@ -74,9 +74,10 @@ int main()
             repetitions = 50;
         }
 
-        double singleTime = MeasureSinglePivot( size, repetitions);
-
-        double dualTime = MeasureDualPivot(size, repetitions);
+       double singleTime;
+       double dualTime;
+       
+       MeasureSorts(size, repetitions, singleTime, dualTime);;
 
         cout << "Size: " << size << " | Single Pivot: " << singleTime << " ms" << " | Dual Pivot: " << dualTime << " ms" << endl;
 
